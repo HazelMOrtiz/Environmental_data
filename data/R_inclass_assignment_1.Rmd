@@ -1,0 +1,32 @@
+---
+title: "RClass1"
+author: "Hazel"
+date: "9/9/2021"
+output: html_document
+---
+```{r}
+data(iris)
+head(iris)
+
+```
+```{r}
+iris$Sepal.Width
+mean(iris$Sepal.Length)
+sd(iris$Sepal.Width)
+```
+```{r}
+plot(x= iris$Sepal.Width, y=iris$Sepal.Length)
+```
+
+```{r}
+data_center_x = mean(iris$Sepal.Width)
+data_center_y = mean(iris$Sepal.Length)
+c(data_center_x, data_center_y)
+```
+```{r}
+plot(x = iris$Sepal.Width, y= iris$Sepal.Length)
+points(x = data_center_x, y = data_center_y, col= "red")
+```
+
+```
+

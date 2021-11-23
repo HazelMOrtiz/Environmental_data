@@ -1,0 +1,24 @@
+---
+title: "Hazel"
+author: "Hazel"
+date: "9/21/2021"
+output: html_document
+---
+```{r}
+require(here)
+
+```
+```{r}
+dat_rope <- read.csv(here("data", "rope.csv"))
+
+dat_rope
+
+```
+```{r}
+head(dat_rope)
+```
+```{r}
+hist(dat_rope$p.strength, main = "Hazel Ortiz")
+```
+
+

@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library("readxl")
+read_xlsx("C:\\Users\\ortiz\\Documents\\Hazel's Docs\\Environmental_data\\data\\croninfish.dat.xlsx")
+```
+```{r}
+data <- read_xlsx("C:\\Users\\ortiz\\Documents\\Hazel's Docs\\Environmental_data\\data\\croninfish.dat.xlsx")
+```
+```{r}
+data
+```
+```{r}
+data$Time_Bled
+```
+
+```{r}
+data$GLU
+```
+
+
+```{r}
+
+plot(x = data$Time_Bled, y = data$GLU, xlim = c(0, 440), ylim = c(0,81), xlab = "Time Bled(sec)", ylab = "Blood Glucose (mg/dL)", main = "Blood Glucose with Time Bled")
+```
+
+```{r}
+
+plot(x = data$Time_Bled, y = data$LAC, xlim = c(0, 440), ylim = c(0,7), xlab = "Time Bled(sec)", ylab = "Blood Lactate (mmol)", main = "Blood Lactate with Time Bled")
+
+```
+
+```{r}
+
+plot(x = data$Fight_Time, y = data$GLU, xlim = c(0, 60), ylim = c(0,81), xlab = "Fight_Time(sec)", ylab = "Blood Glucose (mg/dL)", main = "Blood Glucose with Fight Time")
+
+```
+```{r}
+plot(x = data$Fight_Time, y = data$LAC, xlim = c(0, 60), ylim = c(0,7), xlab = "Fight_Time(sec)", ylab = "Blood Lactate (mmol)", main = "Blood Lactate with Fight Time")
+```
+
+```{r}
+png(filename = "Cronin_Fish_data.png", width = 800, height = 600)
+par(mfrow = c(2,2))
+plot(x = data$Time_Bled, y = data$GLU, xlim = c(0, 440), ylim = c(0,81), xlab = "Time Bled(sec)", ylab = "Blood Glucose (mg/dL)", main = "Blood Glucose with Time Bled")
+plot(x = data$Time_Bled, y = data$LAC, xlim = c(0, 440), ylim = c(0,7), xlab = "Time Bled(sec)", ylab = "Blood Lactate (mmol)", main = "Blood Lactate with Time Bled")
+plot(x = data$Fight_Time, y = data$GLU, xlim = c(0, 60), ylim = c(0,81), xlab = "Fight_Time(sec)", ylab = "Blood Glucose (mg/dL)", main = "Blood Glucose with Fight Time")
+plot(x = data$Fight_Time, y = data$LAC, xlim = c(0, 60), ylim = c(0,7), xlab = "Fight_Time(sec)", ylab = "Blood Lactate (mmol)", main = "Blood Lactate with Fight Time")
+
+dev.off()
+```

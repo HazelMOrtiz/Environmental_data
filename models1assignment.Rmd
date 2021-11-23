@@ -1,0 +1,70 @@
+---
+title: "Models 1"
+author: "Hazel"
+date: "11/2/2021"
+output: html_document
+---
+
+```{r}
+require(palmerpenguins)
+
+```
+```{r}
+dat_ade = droplevels(subset(penguins, species == "Adelie"))
+
+```
+
+```{r}
+hist(dat_ade$body_mass_g, main = "Adelie Penguins: Body Mass", xlab = "body mass (g)")
+
+```
+```{r}
+dat_ade
+```
+
+```{r}
+boxplot(body_mass_g ~ sex,
+        data = dat_ade,
+        main = "Body Mass of Adelie Penguin",
+        xlab = "Sex",
+        ylab = "Body Mass (g)")
+
+```
+
+```{r}
+dat_ade_fem = droplevels(subset(penguins, species == "Adelie", sex == "female"))
+```
+
+```{r}
+dat_ade_fem
+```
+```{r}
+dat_ade_fem = droplevels(subset(dat_ade, sex == "female"))
+```
+
+
+```{r}
+dat_ade_fem
+```
+
+```{r}
+t.test(dat_ade_fem$body_mass_g, y = NULL, alternative = "two.sided", mu = 0, conf.level = 0.95)
+```
+```{r}
+dat_ade_male = droplevels(subset(dat_ade, sex == "male"))
+```
+
+```{r}
+dat_ade_male
+```
+
+
+```{r}
+t.test(dat_ade_male$body_mass_g, y = NULL, alternative = "greater", mu = 0, conf.level = 0.95)
+```
+
+```{r}
+t.test(dat_ade_fem$body_mass_g, dat_ade_male$body_mass_g)
+```
+
+

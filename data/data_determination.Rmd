@@ -1,0 +1,126 @@
+---
+title: "Data_exploration_deterministic_functions"
+author: "Hazel"
+date: "9/26/2021"
+output: html_document
+---
+
+```{r}
+require(here)
+```
+
+```{r}
+dat_habitat <- read.csv(here("data", "hab.sta.csv"))
+
+dat_habitat
+```
+```{r}
+hist(dat_habitat$elev, xlab = "Elevation", main = "Histogram of Elevation")
+```
+```{r}
+hist(dat_habitat$slope, xlab = "Slope", main= "Histogram of Slope")
+```
+```{r}
+hist(dat_habitat$aspect, xlab = "Aspect", main = "Histogram of Aspect", breaks = 15)
+```
+
+```{r}
+png(filename = "Histogram_graphs.png")
+par(mfrow = c(3,1))
+hist(dat_habitat$elev, xlab = "Elevation", main = "Histogram of Elevation")
+hist(dat_habitat$slope, xlab = "Slope", main= "Histogram of Slope")
+hist(dat_habitat$aspect, xlab = "Aspect", main = "Histogram of Aspect", breaks = 15)
+
+dev.off()
+```
+```{r}
+dat_elevation_x = mean(dat_habitat$elev)
+
+dat_elevation_x
+```
+```{r}
+line_point_slope = function(x, x1, y1, slope)
+{
+  get_y_intercept = 
+    function(x1, y1, slope) 
+      return(-(x1 * slope) + y1)
+  
+  linear = 
+    function(x, yint, slope) 
+      return(yint + x * slope)
+  
+  return(linear(x, get_y_intercept(x1, y1, slope), slope))
+}
+```
+
+```{r}
+plot(x = dat_habitat$elev, y = dat_habitat$ba.tot, 
+     xlab = "Elevation", ylab = "Total basal area", main = "Elevation", col = "forestgreen", bg = "lightgreen", cex = 0.5)
+points(x = dat_elevation_x, y = dat_basin_total_y, col = "red")
+
+curve(line_point_slope( x, dat_elevation_x, dat_basin_total_y, 0.3), add = TRUE, col = adjustcolor(col = "darkblue"))
+```
+
+```{r}
+plot(x = dat_habitat$slope, y = dat_habitat$ba.tot, 
+     xlab = "Slope", ylab = "Total basal area", main = "Slope", col = "forestgreen", bg = "lightgreen", cex = 0.7)
+points(x = dat_slope_x, y = dat_basin_total_y, col = "red")
+
+curve(line_point_slope( x, dat_slope_x, dat_basin_total_y, -0.70), add = TRUE, col = adjustcolor(col = "darkblue"))
+```
+```{r}
+dat_slope_x = mean(dat_habitat$slope)
+
+dat_slope_x
+
+```
+
+
+```{r}
+plot(x = dat_habitat$aspect, y = dat_habitat$ba.tot, cex = 0.5,
+     xlab = "Aspect", ylab = "Total basal area", main = "Aspect", col = "forestgreen", bg = "lightgreen")
+
+points(x = dat_aspect_x, y = dat_basin_total_y, col = "red")
+
+curve(line_point_slope( x, dat_aspect_x, dat_basin_total_y, -0.00), add = TRUE, col = adjustcolor(col = "darkblue"))
+
+```
+
+```{r}
+dat_aspect_x = mean(dat_habitat$aspect)
+dat_basin_total_y = mean(dat_habitat$ba.tot)
+
+dat_aspect_x
+
+dat_basin_total_y
+```
+
+```{r}
+png(filename = "Histogram_Scatterplot.png", width = 800, height = 600)
+par(mfrow = c(2,3))
+hist(dat_habitat$elev, xlab = "Elevation", main = "Histogram of Elevation")
+hist(dat_habitat$slope, xlab = "Slope", main= "Histogram of Slope")
+hist(dat_habitat$aspect, xlab = "Aspect", main = "Histogram of Aspect", breaks = 15)
+plot(x = dat_habitat$elev, y = dat_habitat$ba.tot, 
+     xlab = "Elevation", ylab = "Total basal area", main = "Elevation", col = "forestgreen", bg = "lightgreen", cex = 0.6)
+points(x = dat_elevation_x, y = dat_basin_total_y, col = "red")
+
+curve(line_point_slope( x, dat_elevation_x, dat_basin_total_y, 0.3), add = TRUE, col = adjustcolor(col = "darkblue"))
+plot(x = dat_habitat$slope, y = dat_habitat$ba.tot, 
+     xlab = "Slope", ylab = "Total basal area", main = "Slope", col = "forestgreen", bg = "lightgreen", cex = 0.6)
+points(x = dat_slope_x, y = dat_basin_total_y, col = "red")
+
+curve(line_point_slope( x, dat_slope_x, dat_basin_total_y, -0.70), add = TRUE, col = adjustcolor(col = "darkblue"))
+plot(x = dat_habitat$aspect, y = dat_habitat$ba.tot, cex = 0.6,
+     xlab = "Aspect", ylab = "Total basal area", main = "Aspect", col = "forestgreen", bg = "lightgreen")
+
+points(x = dat_aspect_x, y = dat_basin_total_y, col = "red")
+
+curve(line_point_slope( x, dat_aspect_x, dat_basin_total_y, -0.00), add = TRUE, col = adjustcolor(col = "darkblue"))
+
+
+dev.off()
+```
+
+
+

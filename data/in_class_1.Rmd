@@ -1,0 +1,62 @@
+---
+title: "data_exploration_2"
+author: "Hazel"
+date: "9/30/2021"
+output: html_document
+---
+
+```{r}
+require(palmerpenguins)
+require(here)
+```
+
+
+```{r}
+install.packages("palmerpenguins")
+```
+
+```{r}
+penguins = data.frame(penguins)
+
+class = "penguins"
+```
+
+```{r}
+mean(penguins$body_mass_g)
+```
+
+```{r}
+head(penguins)
+```
+```{r}
+mean(penguins$body_mass_g, trim = 0, na.rm = TRUE) 
+```
+```{r}
+summary(penguins)
+```
+```{r}
+hist(penguins$body_mass_g, xlab = "Penguin body mass", main = "Penguin Body mass")
+```
+```{r}
+boxplot(penguins$bill_depth_mm)
+```
+
+```{r}
+boxplot(bill_depth_mm ~ sex, data = penguins)
+```
+```{r}
+par(mfrow = c(1, 2))
+boxplot(penguins$bill_depth_mm)
+boxplot(bill_depth_mm ~ sex, data = penguins)
+```
+```{r}
+coplot(body_mass_g ~ bill_depth_mm | sex, data = penguins)
+```
+```{r}
+
+png(filename = here("basic_histogram.png"), width = 800, height = 600)
+hist(penguins$body_mass_g)
+
+dev.off()
+```
+

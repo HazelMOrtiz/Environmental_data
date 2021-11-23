@@ -1,0 +1,157 @@
+---
+title: "Data Camp Assignment"
+author: "Hazel"
+date: "9/12/2021"
+output: html_document
+---
+
+```{r}
+# A variable a that contains the text of your first name.
+
+a <- "hazel"
+
+# Print out the value of the variable a
+a
+
+```
+
+```{r}
+# A variable b1 that contains the number 45.6
+
+b1 <- 45.6
+
+# Print out the value of the variable b1
+b1
+
+```
+
+```{r}
+# A variable b2 that contains the text “45.6”
+b2 <- "fourty five point six"
+
+# Print out the value of the variable b2
+b2
+```
+```{r}
+# A variable c1 that contains the sequence of integers from 0 to 3
+c1 <- c(0, 1, 2, 3) 
+
+# Print out the value of the variable c1
+c1
+
+```
+```{r}
+class(a)
+
+class (b1)
+
+class (b2)
+
+class(c1)
+```
+
+
+```{r}
+b1+c1
+
+
+```
+```{r}
+# Create a vector called v1 that contains a sequence of integers from -2 to 2.
+
+v1 <- c(-2:2)
+
+# Print out the value of the variable v1
+v1
+
+```
+```{r}
+# Use v1 to create a new vector called v2 whose elements are the elements of v1 multiplied by 3
+
+v2 <- c(-2:2)*3
+
+# Print out the value of the variable v2
+v2
+```
+
+```{r}
+# Calculate the sum of all the elements in v2
+
+sum(v2)
+
+```
+
+```{r}
+# Create a vector called vec_4 whose elements are the integers from 1 to 12.
+
+vec_4 <- c(1:12)
+
+# Print out the value of vec_4
+
+vec_4
+
+```
+```{r}
+# Create a matrix mat_1 from vec_4 that has three rows and four columns. The values in mat_1 should be increasing by row
+
+mat_1 <- matrix(vec_4, nrow= 3, byrow= TRUE)
+
+mat_1
+
+```
+```{r}
+# Create a matrix mat_2 from vec_4 that has three rows and four columns. The values in mat_2 should be increasing by column
+
+mat_2 <- matrix(vec_4, nrow= 3, ncol= 4)
+
+mat_2
+```
+
+```{r}
+# Create a list, named my_list_1 with following three elements:
+
+# first element is numeric: 5.2
+# second element is a string "five point two"
+#third element is a vector of all integers from 0 to 5
+# Name the elements in my_list_1:“two”, “one”, “three”
+
+
+
+my_list_1 <- list("two" = 5.2, "one" = "five point two", "three" = c(0:5))
+
+my_list_1
+
+  
+
+```
+```{r}
+my_list_1[["three"]]
+```
+```{r}
+my_list_1[["one"]]
+```
+```{r}
+my_vec = rep(1:3, 5)
+my_vec
+
+```
+
+```{r}
+my_bool_vec <- c(my_vec == 3)
+
+my_bool_vec
+```
+```{r}
+data.frame(my_vec, my_bool_vec)
+```
+
+```{r}
+
+my_vec[my_bool_vec == TRUE]
+
+```
+
+```
+
+
+

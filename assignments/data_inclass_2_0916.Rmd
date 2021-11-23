@@ -1,0 +1,67 @@
+---
+title: "data_exploration_2"
+author: "Hazel"
+date: "9/16/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages("palmerpenguins")
+```
+
+
+```{r}
+install.packages("here")
+```
+```{r}
+require(palmerpenguins)
+require(here)
+
+```
+
+```{r}
+class(penguins)
+```
+```{r}
+penguins = data.frame(penguins)
+
+```
+
+```{r}
+mean(penguins$body_mass_g)
+```
+```{r}
+head(penguins$body_mass_g)
+```
+```{r}
+summary(penguins)
+```
+```{r}
+boxplot(penguins$bill_depth_mm)
+```
+```{r}
+boxplot(bill_depth_mm ~ sex, data = penguins)
+
+```
+```{r}
+par(mfrow = c(1, 2))
+boxplot(penguins$bill_depth_mm)
+boxplot(bill_depth_mm ~ sex, data = penguins)
+```
+```{r}
+coplot(body_mass_g ~ bill_depth_mm | sex, data = penguins)
+```
+
+```{r}
+require(here)
+png(filename = here("basic_histogram.png"), width = 800, height = 600)
+hist(penguins$body_mass_g)
+dev.off()
+```
+

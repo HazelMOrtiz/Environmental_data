@@ -1,0 +1,133 @@
+---
+title: "Model Assignment"
+author: "Hazel"
+date: "11/4/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+```{r}
+#Marbled salamander data
+
+#Catastrophe rate (cat.rate) is the proportion of years with any breeding effort (i.e., >0 breeding females) in which the number of emerging juveniles per breeding female (i.e., fecundity) was less than 1
+```
+
+```{r}
+require(here)
+```
+
+```{r}
+getwd()
+```
+```{r}
+catrate <- read.csv(here("data", "catrate.csv"))
+
+catrate
+```
+
+```{r}
+head(catrate)
+```
+```{r}
+summary(catrate)
+```
+
+```{r}
+hist(catrate$cat.rate, xlab = "Catastrophe Rate", main = "Salamander Reproduction Catastrophe Rates")
+```
+```{r}
+shapiro.test(catrate$cat.rate)
+```
+```{r}
+#The null hypothesis for the Shapiro-Wilk test is: “The data were sampled from a normally-distributed population”.
+
+#Recall that low p-values suggest that there is good evidence against the null hypothesis.
+```
+
+```{r}
+mean(catrate$cat.rate)
+
+```
+
+```{r}
+t.test(catrate$cat.rate, y = NULL, alternative = "two.sided", mu = 2/7, conf.level = 0.95)
+```
+
+```{r}
+t.test(catrate$cat.rate, y = NULL, alternative = "greater", mu = 2/7, conf.level = 0.95)
+```
+
+```{r}
+wilcox.test(catrate$cat.rate, mu = 2 / 7)
+```
+
+#Penguin data
+
+```{r}
+require(palmerpenguins)
+penguin_dat = droplevels(subset(penguins, species != "Gentoo"))
+```
+```{r}
+summary(penguin_dat)
+```
+```{r}
+boxplot(
+  flipper_length_mm ~ species, 
+  data = penguin_dat,
+  ylab = "Flipper Length (mm)")
+```
+```{r}
+# Extract the Adelie penguin data
+
+
+dat_adelie = subset(penguin_dat, species == "Adelie")
+
+dat_chinstrap = subset(penguin_dat, species == "Chinstrap")
+```
+
+```{r}
+shapiro.test(dat_adelie$flipper_length_mm)
+
+```
+
+
+```{r}
+shapiro.test(dat_chinstrap$flipper_length_mm)
+```
+
+```{r}
+t.test(dat_adelie$flipper_length_mm, dat_chinstrap$flipper_length_mm, alternative = "two.sided", mu = 0, conf.level = .95)
+```
+
+```{r}
+wilcox.test(dat_adelie$flipper_length_mm, dat_chinstrap$flipper_length_mm, mu = 0)
+```
+
+```{r}
+
+hist(dat_adelie$flipper_length_mm, xlab = "Adelie Penguins", ylab = "Flipper Length (mm)", main = "Histogram of Flipper Length in Adelie Penguins")
+
+```
+
+
+```{r}
+hist(dat_chinstrap$flipper_length_mm, xlab = "Chinstrap Penguins", ylab = "Flipper Length (mm)", main = "Histogram of Flipper Length in Chinstrap Penguins")
+```
+
+```{r}
+png(filename = "flipper_length_penguin.png", width = 600, height = 300)
+par(mfrow = c(1,2))
+
+hist(dat_adelie$flipper_length_mm, xlab = "Adelie Penguins", ylab = "Flipper Length (mm)", main = "Flipper Length in Adelie Penguins")
+hist(dat_chinstrap$flipper_length_mm, xlab = "Chinstrap Penguins", ylab = "Flipper Length (mm)", main = "Flipper Length in Chinstrap Penguins")
+
+
+dev.off()
+```
+
+
+
+
+
+
+

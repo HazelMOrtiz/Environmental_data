@@ -1,0 +1,28 @@
+---
+title: "Probability"
+author: "Hazel"
+date: "10/24/2021"
+output: html_document
+---
+
+```{r}
+dbinom(3, 4, .75)
+```
+
+```{r}
+pbinom(3, 4, .75)
+```
+```{r}
+1 - pbinom(3, 5, .75)
+```
+```{r}
+pnorm(1.2, 2, 2)
+```
+
+```{r}
+1- pnorm(1.2, 2, 2)
+```
+```{r}
+pnorm(1.2, mean = 2, sd = 2)- pnorm(3.2, mean = 2, sd = 2)
+```
+

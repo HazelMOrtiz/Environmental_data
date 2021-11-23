@@ -1,0 +1,23 @@
+---
+title: "Confidence Intervals"
+author: "Hazel"
+date: "10/28/2021"
+output: html_document
+---
+
+```{r}
+qnorm(c(0.05, 0.95))
+```
+
+```{r}
+qt(p = c(0.025, 0.975), df = 10, lower.tail = FALSE)
+```
+
+```{r}
+qt(p = c(0.025, 0.975), df = 473, lower.tail = FALSE)
+```
+
+```{r}
+
+```
+

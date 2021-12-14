@@ -1,0 +1,33 @@
+---
+title: "UsingModels2"
+author: "Hazel"
+date: "11/27/2021"
+output: html_document
+---
+```{r}
+require(palmerpenguins)
+boxplot(body_mass_g ~ species , data = penguins)
+
+```
+```{r}
+boxplot(body_mass_g ~ sex:species, data = penguins)
+```
+
+
+```{r}
+boxplot(body_mass_g ~ sex + species, xlab = "Sex:Species", ylab = "Body Mass (g)", data = penguins, names = c("Adelie female", "Adelie male", "Chinstrap female", "Chinstrap male", "Gentoo female", "Gentoo male"))
+```
+```{r}
+
+fit_both = lm(body_mass_g ~ sex * species, data = penguins)
+
+fit_both
+```
+```{r}
+summary(fit_both)
+```
+
+```{r}
+aggregate(body_mass_g~species+sex, data = penguins, FUN = mean)
+```
+

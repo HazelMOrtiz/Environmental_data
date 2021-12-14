@@ -1,0 +1,399 @@
+---
+title: "Campus pond graphs"
+author: "Hazel"
+date: "11/30/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+
+
+```{r}
+#total length by mean size by age - 3 graphs
+
+#total weight by mean size by age - 3 graphs
+
+#individual total weight and length for each fish species - 6 graphs
+```
+
+```{r}
+cp_data<- read.csv ("C:/Users/ortiz/Documents/Hazel's Docs/Environmental_data/data/campus_pond_updated_data.csv ")
+
+cp_data
+```
+
+
+
+```{r}
+bluegill_cp = subset(cp_data,(species == "BG") & (sex %in% c("M", "F", "U")))
+
+bluegill_cp
+
+```
+
+```{r}
+mean(bluegill_cp$nad_wt..mg., na.rm = TRUE) 
+```
+
+
+```{r}
+boxplot(TL ~ sex, data = bluegill_cp,xlab = "Sex", names = c("Female", "Male", "Unknown"), ylab = "Total Length (mm)", ylim = c(50,110))
+
+#Total length of bluegill
+```
+
+```{r}
+
+ps_cp = subset(cp_data,(species == "PS") & (sex %in% c("M", "F", "U")))
+
+ps_cp
+
+```
+```{r}
+boxplot(TL ~ sex, data = ps_cp, xlab = "Sex", names = c("Female", "Male", "Unknown"), ylab = "Total Length (mm)", ylim = c(50,110))
+
+#Total length of pumpkinseed
+```
+
+```{r}
+h_cp = subset(cp_data,(species == "H") & (sex %in% c("M", "F", "U")))
+
+h_cp
+
+```
+
+```{r}
+
+boxplot(TL ~ sex, data = h_cp,xlab = "Sex", names = c("Female", "Male", "Unknown"), ylab = "Total Length (mm)", ylim= c(50,110))
+
+#Total length of hybrid
+
+```
+```{r}
+boxplot(WT ~ sex, data = bluegill_cp, xlab = "Sex", names = c("Female", "Male", "Unknown"), ylab = "Weight (mg)", ylim=c(1000,10000))
+
+
+#Total weight of bluegill by sex
+```
+
+
+```{r}
+boxplot(WT ~ sex, data = ps_cp, xlab = "Sex", names = c("Female", "Male", "Unknown"), ylab = "Weight (mg)", ylim=c(1000,15000))
+
+#Total weight of pumpkinseeds
+
+```
+
+```{r}
+boxplot(WT_.mg. ~ sex, data = h_cp, xlab = "Sex", names = c("Female", "Male", "Unknown"), ylab = "Weight (mg)", ylim=c(1000,15000))
+#Total weight of hybrid
+
+```
+
+
+```{r}
+#bluegill age 1
+bg_1 = subset(bluegill_cp, age == "1")
+
+bg_1
+
+```
+```{r}
+#bluegill age 1 mean
+mean(bg_1$TL)
+```
+
+```{r}
+#pumpkinseed age 1
+
+ps_1 = subset(ps_cp, age == "1")
+
+ps_1
+```
+```{r}
+#pumpkinseed age 1 mean
+
+mean(ps_1$TL)
+```
+
+```{r}
+#hybrid age 1
+
+h_1 = subset(h_cp, age == "1")
+
+h_1
+```
+```{r}
+mean(h_1$TL)
+```
+```{r}
+#Total mean length for all fish age 1
+
+
+boxplot(bg_1$TL, h_1$TL, ps_1$TL, xlab = "Species (age 1)", ylab = "Total Length (mm)", ylim = c(40,100), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+```
+
+
+```{r}
+#ps age 0
+
+ps_0 = subset(ps_cp, age == "0")
+
+ps_0
+```
+```{r}
+mean(ps_0$TL)
+```
+
+
+```{r}
+bg_0 = subset(bluegill_cp, age == "0")
+
+bg_0
+```
+```{r}
+mean(bg_0$TL)
+
+```
+
+```{r}
+h_0 = subset(h_cp, age == "0")
+
+h_0
+```
+```{r}
+mean(h_0$TL)
+
+```
+
+```{r}
+#Total mean length for all fish age 0
+
+
+boxplot(bg_0$TL, h_0$TL, ps_0$TL, xlab = "Species (age 0)", ylab = "Total Length (mm)", ylim = c(40,100), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+```
+
+```{r}
+h_2 = subset(h_cp, age == "2")
+
+h_2
+```
+```{r}
+mean(h_2$TL)
+```
+```{r}
+ps_2 = subset(ps_cp, age == "2")
+
+ps_2
+
+```
+```{r}
+mean(ps_2$TL)
+```
+```{r}
+bg_2 = subset(bluegill_cp, age == "2")
+
+bg_2
+```
+```{r}
+mean(bg_2$TL)
+```
+```{r}
+#Total mean for fish aged 2
+
+boxplot(bg_2$TL, h_2$TL, ps_2$TL, xlab = "Species (age 2)", ylab = "Total Length (mm)", ylim = c(40,100), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+```
+
+```{r}
+png(filename = "CP_Fish_TL.png", width = 1200, height = 500)
+par(mfrow = c(1,3))
+
+boxplot(bg_0$TL, h_0$TL, ps_0$TL, xlab = "Species (age 0)", ylab = "Total Length (mm)", ylim = c(40,100), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+
+boxplot(bg_1$TL, h_1$TL, ps_1$TL, xlab = "Species (age 1)", ylab = "Total Length (mm)", ylim = c(40,100), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+
+boxplot(bg_2$TL, h_2$TL, ps_2$TL, xlab = "Species (age 2)", ylab = "Total Length (mm)", ylim = c(40,100), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+
+dev.off()
+```
+
+```{r}
+#Total mean weight for fish aged 0
+
+boxplot(bg_0$WT_.mg., h_0$WT_.mg., ps_0$WT_.mg., na.rm = TRUE, xlab = "Species (age 0)", ylab = "Weight (mg)", ylim=c(1000,15000), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+```
+```{r}
+mean(bg_0$WT, na.rm = TRUE)
+
+```
+```{r}
+mean(h_0$WT, na.rm = TRUE)
+
+```
+```{r}
+mean(ps_0$WT_.mg., na.rm = TRUE)
+
+```
+
+
+```{r}
+# Total mean weight for fish age 1 
+
+boxplot(bg_1$WT_.mg., h_1$WT_.mg., ps_1$WT_.mg., xlab = "Species (age 1)", ylab = "Weight (mg)", ylim=c(1000,15000), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+```
+
+```{r}
+mean(bg_1$WT_.mg., na.rm = TRUE)
+
+```
+
+```{r}
+mean(h_1$WT_.mg., na.rm = TRUE)
+
+```
+
+
+```{r}
+mean(ps_1$WT_.mg., na.rm = TRUE)
+
+```
+
+```{r}
+# Total mean weight for fish age 2
+boxplot(bg_2$WT_.mg., h_2$WT_.mg., ps_2$WT_.mg., xlab = "Species (age 2)", ylab = "Weight (mg)", ylim=c(1000,15000), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+```
+
+```{r}
+mean(bg_2$WT_.mg., na.rm = TRUE)
+
+```
+
+```{r}
+mean(h_2$WT_.mg., na.rm = TRUE)
+
+```
+
+```{r}
+mean(ps_2$WT_.mg., na.rm = TRUE)
+
+
+```
+
+
+```{r}
+png(filename = "CP_Fish_WT.png", width = 1200, height = 500)
+par(mfrow = c(1,3))
+
+boxplot(bg_0$WT_.mg., h_0$WT_.mg., ps_0$WT_.mg., na.rm = TRUE, xlab = "Species (age 0)", ylab = "Weight (mg)", ylim=c(1000,15000), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+
+boxplot(bg_1$WT_.mg., h_1$WT_.mg., ps_1$WT_.mg., xlab = "Species (age 1)", ylab = "Weight (mg)", ylim=c(1000,15000), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+
+boxplot(bg_2$WT_.mg., h_2$WT_.mg., ps_2$WT_.mg., xlab = "Species (age 2)", ylab = "Weight (mg)", ylim=c(1000,15000), names = c("Bluegill", "Hybrid", "Pumpkinseed"))
+
+dev.off()
+
+```
+
+
+
+
+```{r}
+#weight for all species and individual sex
+
+boxplot(WT ~ sex + species, xlab = "Sex and Species", ylab = "Weight (mg)", ylim = c(1000,15000), data = all_fish_cp, names = c("Bluegill\nfemale", "Bluegill\nmale", "Bluegill\nunknown", "Hybrid\nfemale", "Hybrid\nmale", "Hybrid\nunknown", "Pumpkinseed\nfemale", "Pumpkinseed\nmale", "Pumpkinseed\nunknown"))
+```
+
+```{r}
+#total length for all species and individual sex
+
+boxplot(TL ~ sex + species, xlab = "Sex and Species", ylab = "Total length (mm)", ylim = c(30,110), data = all_fish_cp, names = c("Bluegill\nfemale", "Bluegill\nmale", "Bluegill\nunknown", "Hybrid\nfemale", "Hybrid\nmale", "Hybrid\nunknown", "PS\nfemale", "PS\nmale", "PS\nunknown"))
+```
+
+```{r}
+
+h_3 = subset(h_cp, age == "3")
+
+h_3
+
+```
+
+```{r}
+
+#all fish combined without the NA data in sex
+
+all_list <- list(bluegill_cp, ps_cp, h_cp)
+
+all_fish_cp = Reduce(function(x, y) merge(x, y, all=TRUE), all_list)
+
+all_fish_cp
+
+```
+
+
+
+
+
+
+
+```{r}
+mean(h_3$TL)
+
+```
+```{r}
+plot(x = bluegill_cp$TL, y = bluegill_cp$WT, xlab = "Total length", ylab = "Weight")
+
+
+
+plot(x = ps_cp$TL, y = ps_cp$WT, xlab = "Total length", ylab = "Weight")
+
+```
+
+```{r}
+cp_raw2 <- read.csv ("C:/Users/ortiz/Documents/Hazel's Docs/Environmental_data/data/Campus_Pond_Data.csv ")
+library(ggplot2)
+
+Wr_plots <- ggplot(cp_raw2,aes(species,Wr))+geom_boxplot()+theme_classic()+geom_hline(yintercept = 100)
+Wr_plots
+```
+
+```{r}
+
+all_age0 = subset(all_fish_cp, age == "0")
+
+all_age0
+
+```
+```{r}
+all_age1 = subset(all_fish_cp, age == "1")
+
+all_age1
+```
+
+```{r}
+all_age2 = subset(all_fish_cp, age == "2")
+
+all_age2
+```
+
+```{r}
+Wr_age0 <- ggplot(all_age0,aes(species,Wr))+geom_boxplot()+theme_classic()+geom_hline(yintercept = 100)+ylim()
+Wr_age0
+```
+```{r}
+Wr_age1 <- ggplot(all_age1,aes(species,Wr))+geom_boxplot()+theme_classic()+geom_hline(yintercept = 100)
+Wr_age1
+```
+
+```{r}
+
+Wr_age2 <- ggplot(all_age2,aes(species,Wr))+geom_boxplot()+theme_classic()+geom_hline(yintercept = 100)
+Wr_age2
+
+```
+
+
+
+
+

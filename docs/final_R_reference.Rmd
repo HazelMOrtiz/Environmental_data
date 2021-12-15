@@ -11,15 +11,16 @@ output: html_document
 
 # R Reference Guide {.tabset .tabset-pills}
 
-
 ## Loading Data and Packages
 
 ### library() and require()
+
 The function library() and require() are both used to load and attach installed packages to R. R does not always load the extra packages you installed, so you need to use one of these functions to tell R to load the package. 
 
 If the package is already loaded:
 
  * The library() function will re-load it.
+ 
  * The require() function will check first and will not re-load if it is already loaded.
  
 I prefer to use the require() function because some packages take a long time to load, so not re-loading a package saves a lot of time. 
@@ -40,9 +41,11 @@ The function here() locates project files based on the current working directory
 The read.csv() function loads csv files from the file system and stores the data in a data frame
 
  * Using the here() package is an easy way to access files and can access files from a different working directory without changing the main Rproject directory. 
+ 
  * While using here(), use subdirectories (in the correct order) and filename in quotation marks to assemble an absolute path to the file. 
 
 The following is an example of how to use the here() and read.csv() functions:
+
 ```{r}
 ## Using 2021 ginkgo data to create a data frame using read.csv()
 
@@ -57,15 +60,14 @@ ginkgo
 here("data", "ginkgo_data_2021.csv")
 ```
 
-
 ## Data Structures
-
 
 ### c()
 
 The function c() combines or concatenates its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).
 
  * All of the elements must be of the same type.
+ 
  * I can’t combine character and numeric types in the same call to c()
 
 Here’s two examples using numeric and character data types:
@@ -92,8 +94,8 @@ print(char_vec)
 ## [1] "a"            "fish"         "data is cool"
 ```
 
-
 ### length()
+
 The length() function determines how many elements are in a vector.
 
 ```{r}
@@ -107,8 +109,8 @@ length(num_vec)
 
 ```
 
-
 ### matrix()
+
 The matrix() function constructs a matrix in R. This function has three arguments that lets the function know how the elements need to be arranged.
 
  * The first argument is the collection of elements that will be arranged by the function. You can use a vector as the first element.
@@ -158,14 +160,17 @@ data.frame(my_vec, my_bool_vec)
 
 ### Functions used with data.frame() and matrix()
 
-nrow()
- * The nrow() returns the number of rows of a data frame or a matrix.
+#### nrow()
+
+The nrow() returns the number of rows of a data frame or a matrix.
  
-ncol()
- * The ncol() returns the number of columns of a data frame or a matrix.
+#### ncol() 
+
+The ncol() returns the number of columns of a data frame or a matrix.
  
-dim()
- * The dim() function returns or assigns the number of rows and colums of a data frame or a matrix.
+#### dim() 
+
+The dim() function returns or assigns the number of rows and colums of a data frame or a matrix.
  
 ```{r}
 ## Using the ginkgo data frame to create examples of nrow(), ncol(), and dim()
@@ -186,44 +191,47 @@ dim(ginkgo)
 ### subset()
 
 Subsetting a data frame can be done by using a couple different functions, depending on what we want to accomplish.
+ 
  * To subset a data frame by name, we can use '$'.
+ 
  * To subset a data frame by position, we can use '[]'.
+ 
  * The subset() function can be used to extra a specific part of the input data based on given parameters.
 
 
 ```{r}
-# First load the data frame that will be used
+## First load the data frame that will be used
 
 ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
 
 
-# Selecting the 'petiole_length' column in the gingko data frame
+## Selecting the 'petiole_length' column in the ginkgo data frame
 
 ginkgo$petiole_length
 
 ```
 
 ```{r}
-# Selecting the first row of the ginkgo data
+## Selecting the first row of the ginkgo data
 
 ginkgo[1,0]
 ```
 
 ```{r}
-# Selecting the element in row 2, column 3 of the ginkgo data
+## Selecting the element in row 2, column 3 of the ginkgo data
 
 ginkgo[2,3]
 
 ```
 
 ```{r}
-# Selecting the third column of the ginkgo data
+## Selecting the third column of the ginkgo data
 
 ginkgo[0,3]
 
 ```
 ```{r}
-# Using the subset() function to retrieve all of the data for Adelie penguins from the species column in the penguins dataset
+## Using the subset() function to retrieve all of the data for Adelie penguins from the species column in the penguins dataset
 
 library(palmerpenguins)
 
@@ -242,9 +250,8 @@ There are several functions that can be used to calculate and analyze the numeri
  
  * sd() is used to quantify the amount of variation or dispersion of a set of given data values.
 
-
 ```{r}
-# Using the ginkgo data to summarize the data frame
+## Using the ginkgo data to summarize the data frame
 
 ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
 
@@ -254,49 +261,60 @@ summary(ginkgo)
 ```
 
 ```{r}
-# Using the mean() function to calculate the mean of the 'petiole_length' column in the ginkgo data frame 
+## Using the mean() function to calculate the mean of the 'petiole_length' column in the ginkgo data frame 
 
 
 mean(ginkgo$petiole_length, na.rm = TRUE)
 
-# The na.rm() function indicates whether 'NA' values should be removed before computation  
+## The na.rm() function indicates whether 'NA' values should be removed before computation
+
 ```
 
 ```{r}
-# Using the sd() function to calculate the standard deviation of the 'petiole_length' column in the ginkgo data frame
+## Using the sd() function to calculate the standard deviation of the 'petiole_length' column in the ginkgo data frame
 
-sd(gingko$petiole_length, na.rm = TRUE)
+sd(ginkgo$petiole_length, na.rm = TRUE)
 ```
 ## Graphical Data Exploration
 
-The plot() argument creates a scatterplot from given values/parameters. 
+### Using plot(), hist(), and boxplot()
+
+The plot() argument creates a scatterplot from given values/parameters.
 
 The hist() argument creates a histogram from given values/parameters.
 
 The boxplot() argument creates a boxplot of given data from given values/parameters.
 
 ```{r}
-# Using the ginkgo data to create a scatterplot of max leef depth (x) and max leaf width(y)
+## Using the ginkgo data to create a scatterplot of max leef depth (x) and max leaf width(y)
 
 ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
 
-plot(x = gingko$max_depth, y = gingko$max_width, 
-     xlab = "Max depth", ylab = "Max width", main = "Gingko leaves")
+plot(x = ginkgo$max_depth, y = ginkgo$max_width, 
+     xlab = "Max depth", ylab = "Max width", main = "Ginkgo leaves")
 
 ```
 
 There are also several other arguments that can be used when making graphs that can help to create a better result. The following can all be used in a plot() graph:
+
  * col = Used to specify colors with the associated number in R. For example, the color red is denoted by col = 2. This is useful when plotting multiple groups because you can change each group to a different color.
+ 
  * pch = Used to change the dimensions of points on a plot graph. For example, pch = 1 is a standard circle, but can be changed to pch = 2 which is a triangle.
+ 
  * cex = Used to change the size of the plotting symbol. The default is 1, 1.5 is 50% larger, 0.5 is 50%, etc. 
- * main = Used to create a title. Example: main = "Title of Graph"
+ 
+ * main = Used to create a title. Example: main = "Title of Graph".
+ 
  * xlab = Used to label the x-axis of a graph. Example: xlab = "My x axis".
- * ylab = Used to label the y-axis of a graph. Example: ylab = "This is my y axis"
+ 
+ * ylab = Used to label the y-axis of a graph. Example: ylab = "This is my y axis".
+ 
  * xlim = Used to set limits of the x-axis. For example, to create a scatterplot with x-axis limits ranging from 0-20, include xlim = c(0,20) in the plot() command. 
+ 
  * ylim = Used to set limits for the y-axis. For example, to create a scatterplot with y-axis limits ranging from 20-80, include ylim = c(20,80) in the plot() command. 
 
 ```{r}
-# Create a scatterplot with the above plot() commands
+## Create a scatterplot with the above plot() commands
 
 ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
 
@@ -307,9 +325,9 @@ plot(x = ginkgo$max_depth, y = ginkgo$max_width,
 ```
 
 ```{r}
-# Creating a histogram using the penguin flipper lengths of the palmer penguins data set.
+## Creating a histogram using the penguin flipper lengths of the palmer penguins data set.
 
-# Using the breaks argument in a histogram will specify the number of cells we want.
+## Using the breaks argument in a histogram will specify the number of cells we want.
 
 library(palmerpenguins)
 
@@ -319,15 +337,15 @@ hist(penguins$flipper_length_mm, xlab = "Flipper length", main = "Penguin Flippe
 ```
 
 ```{r}
-# Creating boxplots using the ginkgo data
+## Creating boxplots using the ginkgo data
 
 ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
 
-# A simple boxplot of petiole lengths
+## A simple boxplot of petiole lengths
 
 boxplot(ginkgo$petiole_length, main = "Ginkgo Petiole Length")
 
-# A conditional boxplot of one of the continuous variables conditioned on the seeds_present column
+## A conditional boxplot of one of the continuous variables conditioned on the seeds_present column
 
 boxplot(data = ginkgo, max_width ~ seeds_present, "Max width by Seeds present", xlab = "Seeds present", ylab = "Max Leaf Width")
 
@@ -338,7 +356,7 @@ We can also make a figure out of the graphs that we make by using creating an ou
  * par(mfrow = c()) is used within the png() function to arrange the rows and columns within the output figure. 
 
 ```{r}
-# Using the ginkgo data to create a panel of four histograms
+## Using the ginkgo data to create a panel of four histograms
 
 ginkgo = read.csv(here("data", "ginkgo_data_2021.csv"))
 
@@ -356,62 +374,89 @@ dev.off()
 
 ## Distribution Functions
 
-The normal distribution functions are: dnorm, pnorm, and qnorm
+The normal distribution functions are: dnorm, pnorm, and qnorm.
 
-dnorm(): Calculates the probability distribution of a specific event for a given mean and standard deviation. 
- * The mean and standard deviation must be provided.
+ * Normal distribution functions work with continuous distributions.
 
-```{r}
-# Example of dnorm using a previous example
-
-dnorm(x,mean,sd)
-
-dnorm(1.5, mean = 0, sd = 1)
-```
-
-pnorm(): Returns the cumulative distribution for a given value in a normal distribution. 
- * The mean and standard deviation of the distribution must be provided.
+dnorm(): Calculates the probability distribution of a specific event for a given variable (x), mean, and standard deviation. 
 
 ```{r}
-# Example of pnorm  
+## What is the probability that I observe a value of 10 from a normally-distributed population with a mean of 20 and a standard deviation of 5? 
 
-pnorm(q,mean,sd)
-
-pnorm(1.5, mean = 0, sd = 1)
-
+dnorm(10, mean = 20, sd = 5)
 ```
+pnorm(): Calculates the cumulative distribution for a given value in a normal distribution with a given variable (q), mean, and standard deviation. Pnorm gives us the probability of observing a value more or less than the given value.
 
-qnorm(): Returns the quantile for a given value in a normal distribution.
- * The mean and standard deviation must be provided. 
+ * Probabilities between two values can also be observed.
+ 
+ * Pnorm returns the area to the left of a given value in a normal distribution, so a "less than" or "equal to" value. To get the area to the right, or "greater than", of a given value, you can add the 'lower.tail = FALSE' function.
+ 
+ * Instead of the 'lower.tail = FALSE' function, subtracting the output by 1 will also work. Subtracting the pnorm output from 1 will give the probability of everything above the value.
  
 ```{r}
-# Example of qnorm
+## What is the probability that I observe a value of 75 or less from a normally-distributed population with a mean of 60 and a standard deviation of 2?
 
-qnorm(p,mean,sd)
-qnorm(1.5,mean = 0, sd = 1)
+pnorm(75, mean = 60, sd = 2, lower.tail = TRUE)
+
+## What is the probability of observing more than 3 successes in a binomial distribution with parameters n = 5 and p = 0.75?
+
+pnorm(84, mean = 80, sd = 2, lower.tail = FALSE)
+
+# OR, without the lower.tail argument, this function can be run as the following:
+
+1- pnorm(84, mean = 80, sd = 2)
 
 ```
 
-The binomial distribution functions are: dbinom, pbinom, and qbinom. 
-
-dbinom(): the probability mass function, .
- * The size and probability must be provided. 
+qnorm(): Returns the quantile for a given value in a normal distribution with a given mean and standard deviation.
+ 
 ```{r}
-# Example:
-dbinom(x, size, prob)
+## What is the 80th percentile of a distribution with a mean of 50 from a normally-distributed population and a standard deviation of 1?
+
+qnorm(.8,mean = 50, sd = 1)
 
 ```
+The binomial distribution functions are: dbinom, pbinom, and qbinom.
 
-pbinom(): the cumulative mass function, 
+ * Binomial distribution functions work with discrete distributions.
+ 
+dbinom(): the probability mass function, dbinom calculates the probability density function of a binomial distribution with a given variable (x), number of trials (size), and probability of success on each trial (prob).
 
+  * Calculates the probability of a specific event. 
 
 ```{r}
-pbinom(x, size, prob)
-```
+## What is the probability of observing a value of exactly 3 successes in a binomial distribution during 4 trials and a probability of success on each trial being .75?
 
-qbinom(): the quantile function
+dbinom(3,size = 4,prob = .75)
+```
+pbinom(): returns the cumulative mass function of a binomial distribution given the variable (q), number of trials (size), and probability of success on each trial (prob).
+
+ * The pbinom returns the area to the left of the binomial distribution of a given value (q), so a "less than" or "equal to" value. To get the area to the right, or "greater than", of a given value, you can add the 'lower.tail = FALSE' function.
+ 
+ * Calculates the probability of observing a value greater or less than the given value.
+ 
+ * Instead of the 'lower.tail = FALSE' function, subtracting the output by 1 will also work. Like with pnorm, the pbinom output can be subtracted from 1 will give the probability of everything above the value.
 
 ```{r}
-qbinom(p, size, prob)
+## What is the probability of observing a count of 3 successes or fewer in a binomial distribution with parameters n = 4 and p = 0.75?
+
+pbinom(3, size = 4, prob = .75) 
+
+## What is the probability of observing more than 3 successes in a binomial distribution with parameters n = 5 and p = 0.75?
+
+1 - pbinom(3, 5, .75)
+
+## Can also be run as:
+
+pbinom(3, 5, .75, lower.tail = FALSE)
 
 ```
+
+qbinom(): the quantile function for binomial distributions,qbinom calculates the median or quantile with a given variable (p), number of trials (size), and probability of success on each trial (prob).
+
+```{r}
+## What is the 50th percentile of a binomial distribution with 30 trials and probability of success on each trial being .25?
+
+qbinom(.40, size=30, prob=.25)
+```
+For all distribution functions the argument 'lower.tail' has a default setting of TRUE, so they do not need to be listed in the syntax unless you are changing it to FALSE to view the right side of a curve. 
